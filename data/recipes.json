@@ -218,11 +218,11 @@
       {"name": "paprika", "quantity": "1 tsp", "category": "spices"}
     ],
     "instructions": [
-      "Preheat oven to 200°C (400°F). Pat chicken completely dry with paper towels.",
+      "Preheat oven to 200C (400F). Pat chicken completely dry with paper towels.",
       "Mix olive oil, juice of 1 lemon, minced garlic, paprika, salt, and pepper into a paste.",
       "Rub paste all over chicken, including under the skin if possible.",
       "Stuff cavity (or surround pieces) with sliced lemon, rosemary, and thyme.",
-      "Roast 60-70 min (whole bird) or 35-40 min (pieces) until juices run clear (75°C internal temp).",
+      "Roast 60-70 min (whole bird) or 35-40 min (pieces) until juices run clear (75C internal temp).",
       "Rest 10 min before carving. Deglaze pan drippings with a splash of water for a quick sauce."
     ],
     "substitutions": {
@@ -359,7 +359,7 @@
     },
     "tips": [
       "Red lentils don't need soaking and cook quickly — perfect for weeknights.",
-      "For a richer dal, finish with a 'tarka': fry mustard seeds and curry leaves in ghee, pour over.",
+      "For a richer dal, finish with a tarka: fry mustard seeds and curry leaves in ghee, pour over.",
       "Dal thickens as it cools — add water when reheating."
     ],
     "nutrition": {"calories": 280, "protein": "16g", "carbs": "44g", "fat": "5g"},

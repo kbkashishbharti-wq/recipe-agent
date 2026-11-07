@@ -48,15 +48,14 @@ def find_recipes():
     POST /api/recipes
     Body: {
         "ingredients": ["egg", "flour", "milk"],
-        "dietary_preferences": ["vegetarian"],   // optional
-        "query": "quick breakfast"               // optional free-text
+        "dietary_preferences": ["vegetarian"],
+        "query": "quick breakfast"
     }
     """
     data = request.get_json(silent=True) or {}
 
     ingredients = data.get("ingredients", [])
     if isinstance(ingredients, str):
-        # Accept comma-separated string as well
         ingredients = [i.strip() for i in ingredients.split(",") if i.strip()]
 
     dietary = data.get("dietary_preferences", [])

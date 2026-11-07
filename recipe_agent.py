@@ -53,7 +53,7 @@ Suggest the best substitution from what the user actually has, explaining:
 Be concise and practical.
 """
 
-TIPS_PROMPT_TEMPLATE = """You are a professional chef. For the recipe "{recipe_name}", 
+TIPS_PROMPT_TEMPLATE = """You are a professional chef. For the recipe "{recipe_name}",
 provide 3 expert cooking tips that will help a home cook get the best results.
 Consider: technique, common mistakes to avoid, flavor enhancement, and presentation.
 Keep each tip to 1-2 sentences. Be specific and actionable.
@@ -80,10 +80,6 @@ class RecipeAgent:
             f"IBM Granite: {self.llm.is_ready()}"
         )
 
-    # ------------------------------------------------------------------
-    # Main entry point
-    # ------------------------------------------------------------------
-
     def find_recipes(
         self,
         ingredients: List[str],
@@ -91,10 +87,8 @@ class RecipeAgent:
         user_query: str = "",
     ) -> Dict[str, Any]:
         """
-        Given a list of ingredients and optional preferences, retrieve relevant recipes
-        and generate AI-powered cooking guidance.
-
-        Returns a structured response dict.
+        Given a list of ingredients and optional preferences, retrieve relevant
+        recipes and generate AI-powered cooking guidance.
         """
         if not ingredients:
             return {
@@ -104,10 +98,7 @@ class RecipeAgent:
                 "ai_response": "",
             }
 
-        # Build enriched search query
         query = self._build_search_query(ingredients, dietary_preferences, user_query)
-
-        # --- RAG Retrieval ---
         retrieved = self.rag.retrieve(query)
 
         if not retrieved:
@@ -122,7 +113,6 @@ class RecipeAgent:
                 "rag_mode": self.rag.is_using_vectors(),
             }
 
-        # --- Build LLM context ---
         context = self._build_context(retrieved)
         dietary_note = self._build_dietary_note(dietary_preferences)
 
@@ -133,10 +123,7 @@ class RecipeAgent:
             dietary_note=dietary_note,
         )
 
-        # --- IBM Granite Generation ---
         ai_response = self.llm.generate(prompt)
-
-        # --- Compute ingredient match scores ---
         recipes_with_scores = self._score_ingredient_matches(retrieved, ingredients)
 
         return {
@@ -150,10 +137,6 @@ class RecipeAgent:
             "model_info": self.llm.get_model_info(),
         }
 
-    # ------------------------------------------------------------------
-    # Substitution advisor
-    # ------------------------------------------------------------------
-
     def get_substitution(
         self,
         recipe_id: str,
@@ -165,7 +148,6 @@ class RecipeAgent:
         if not recipe:
             return {"success": False, "error": "Recipe not found."}
 
-        # Get known substitutions from knowledge base
         known_subs = recipe.get("substitutions", {}).get(missing_ingredient.lower(), [])
         known_subs_str = ", ".join(known_subs) if known_subs else "none documented"
 
@@ -186,10 +168,6 @@ class RecipeAgent:
             "ai_advice": ai_response,
         }
 
-    # ------------------------------------------------------------------
-    # Cooking tips
-    # ------------------------------------------------------------------
-
     def get_cooking_tips(self, recipe_id: str) -> Dict[str, Any]:
         """Get AI-enhanced cooking tips for a specific recipe."""
         recipe = self.rag.get_recipe_by_id(recipe_id)
@@ -206,13 +184,7 @@ class RecipeAgent:
             "ai_tips": ai_tips,
         }
 
-    # ------------------------------------------------------------------
-    # Helpers
-    # ------------------------------------------------------------------
-
-    def _build_search_query(
-        self, ingredients: List[str], preferences: List[str], user_query: str
-    ) -> str:
+    def _build_search_query(self, ingredients, preferences, user_query):
         parts = []
         if user_query:
             parts.append(user_query)
@@ -224,7 +196,7 @@ class RecipeAgent:
     def _build_context(self, retrieved: List[Dict]) -> str:
         """Serialize retrieved recipes into LLM-readable context."""
         sections = []
-        for i, item in enumerate(retrieved[:4], 1):  # max 4 in context to stay within token limit
+        for i, item in enumerate(retrieved[:4], 1):
             r = item["recipe"]
             score = item["score"]
             ingredients = ", ".join(
@@ -238,7 +210,7 @@ class RecipeAgent:
             tips = " | ".join(r.get("tips", []))
 
             sections.append(
-                f"[Recipe {i} — Relevance: {score}]\n"
+                f"[Recipe {i} - Relevance: {score}]\n"
                 f"Name: {r['name']} ({r.get('cuisine', '')}) | "
                 f"Diet: {', '.join(r.get('diet', []))} | "
                 f"Time: {r.get('time_minutes')} min | "
@@ -255,9 +227,7 @@ class RecipeAgent:
             return ""
         return f"User dietary preferences/restrictions: {', '.join(preferences)}. Please tailor advice accordingly."
 
-    def _score_ingredient_matches(
-        self, retrieved: List[Dict], user_ingredients: List[str]
-    ) -> List[Dict]:
+    def _score_ingredient_matches(self, retrieved: List[Dict], user_ingredients: List[str]) -> List[Dict]:
         """Enrich retrieved recipes with ingredient match metadata."""
         user_set = {ing.lower().strip() for ing in user_ingredients}
         result = []
@@ -269,22 +239,19 @@ class RecipeAgent:
             matched = user_set & recipe_ings
             missing = recipe_ings - user_set
 
-            result.append(
-                {
-                    **recipe,
-                    "relevance_score": item["score"],
-                    "matched_ingredients": sorted(matched),
-                    "missing_ingredients": sorted(missing),
-                    "match_percentage": round(
-                        len(matched) / len(recipe_ings) * 100 if recipe_ings else 0, 1
-                    ),
-                }
-            )
+            result.append({
+                **recipe,
+                "relevance_score": item["score"],
+                "matched_ingredients": sorted(matched),
+                "missing_ingredients": sorted(missing),
+                "match_percentage": round(
+                    len(matched) / len(recipe_ings) * 100 if recipe_ings else 0, 1
+                ),
+            })
 
         return result
 
     def get_status(self) -> Dict[str, Any]:
-        """Return agent health and configuration status."""
         return {
             "recipes_loaded": len(self.rag.get_all_recipes()),
             "vector_search": self.rag.is_using_vectors(),

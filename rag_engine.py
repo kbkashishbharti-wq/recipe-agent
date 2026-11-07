@@ -25,7 +25,6 @@ def _build_recipe_document(recipe: Dict) -> str:
     Ingredient names are repeated for higher weighting.
     """
     ingredients_str = " ".join(
-        # repeat ingredient name 3× so it scores higher in retrieval
         (f"{i['name']} " * 3).strip()
         for i in recipe.get("ingredients", [])
     )
@@ -35,7 +34,7 @@ def _build_recipe_document(recipe: Dict) -> str:
     diet_str = " ".join(recipe.get("diet", []))
 
     return (
-        f"{recipe['name']} {recipe['name']} "          # title weighted 2×
+        f"{recipe['name']} {recipe['name']} "
         f"{recipe.get('cuisine', '')} "
         f"{diet_str} "
         f"{recipe.get('difficulty', '')} "
@@ -65,13 +64,11 @@ class _TFIDFIndex:
             tf: Dict[str, float] = {}
             for t in tokens:
                 tf[t] = tf.get(t, 0) + 1
-            # normalise by doc length
             length = len(tokens) or 1
             self._tf.append({t: c / length for t, c in tf.items()})
             for t in token_set:
                 df[t] = df.get(t, 0) + 1
 
-        # IDF with smoothing
         for term, count in df.items():
             self._idf[term] = math.log((self._n + 1) / (count + 1)) + 1
 
@@ -110,14 +107,10 @@ class RAGEngine:
 
         self.recipes: List[Dict] = []
         self._index: _TFIDFIndex | None = None
-        self._use_chroma = False  # kept for status reporting
+        self._use_vectors = False
 
         self._load_recipes()
         self._build_index()
-
-    # ------------------------------------------------------------------
-    # Setup
-    # ------------------------------------------------------------------
 
     def _load_recipes(self):
         """Load recipe knowledge base from JSON."""
@@ -135,12 +128,8 @@ class RAGEngine:
             return
         documents = [_build_recipe_document(r) for r in self.recipes]
         self._index = _TFIDFIndex(documents)
-        self._use_chroma = True   # report as "vector" mode — TF-IDF is a vector method
+        self._use_vectors = True
         print(f"[RAGEngine] TF-IDF vector index built ({len(self.recipes)} recipes). Ready.")
-
-    # ------------------------------------------------------------------
-    # Retrieval
-    # ------------------------------------------------------------------
 
     def retrieve(self, query: str, top_k: int = None) -> List[Dict[str, Any]]:
         """
@@ -154,27 +143,19 @@ class RAGEngine:
 
         hits = self._index.query(query, k)
         results = []
-        # Normalise scores to 0-1 range
         max_score = hits[0][1] if hits else 1.0
         for idx, raw_score in hits:
             norm_score = round(raw_score / max_score, 3) if max_score > 0 else 0.0
             results.append({"recipe": self.recipes[idx], "score": norm_score})
         return results
 
-    # ------------------------------------------------------------------
-    # Public helpers
-    # ------------------------------------------------------------------
-
     def get_all_recipes(self) -> List[Dict]:
-        """Return all recipes from the knowledge base."""
         return self.recipes
 
     def get_recipe_by_id(self, recipe_id: str) -> Dict | None:
-        """Find a recipe by its ID."""
         return next((r for r in self.recipes if r["id"] == recipe_id), None)
 
     def get_unique_ingredients(self) -> List[str]:
-        """Return sorted list of all unique ingredient names in the knowledge base."""
         ingredients = set()
         for recipe in self.recipes:
             for ing in recipe.get("ingredients", []):
@@ -182,4 +163,4 @@ class RAGEngine:
         return sorted(ingredients)
 
     def is_using_vectors(self) -> bool:
-        return self._use_chroma
+        return self._use_vectors
