@@ -1,0 +1,489 @@
+[
+  {
+    "id": "R001",
+    "name": "Classic Spaghetti Aglio e Olio",
+    "cuisine": "Italian",
+    "diet": ["vegetarian", "vegan"],
+    "difficulty": "easy",
+    "time_minutes": 20,
+    "servings": 2,
+    "ingredients": [
+      {"name": "spaghetti", "quantity": "200g", "category": "pasta"},
+      {"name": "garlic", "quantity": "6 cloves", "category": "aromatics"},
+      {"name": "olive oil", "quantity": "4 tbsp", "category": "oil"},
+      {"name": "red chili flakes", "quantity": "1 tsp", "category": "spices"},
+      {"name": "parsley", "quantity": "handful", "category": "herbs"},
+      {"name": "salt", "quantity": "to taste", "category": "seasoning"},
+      {"name": "black pepper", "quantity": "to taste", "category": "seasoning"}
+    ],
+    "instructions": [
+      "Boil salted water in a large pot. Cook spaghetti until al dente (8-10 min). Reserve 1 cup pasta water.",
+      "Thinly slice garlic. In a wide pan, heat olive oil over medium-low heat.",
+      "Add garlic and chili flakes. Cook gently 2-3 min until garlic is golden — do NOT burn.",
+      "Add drained pasta to the pan with a splash of pasta water. Toss vigorously to emulsify.",
+      "Season with salt and pepper. Garnish with fresh parsley and serve immediately."
+    ],
+    "substitutions": {
+      "spaghetti": ["linguine", "fettuccine", "rice noodles (for gluten-free)"],
+      "parsley": ["basil", "chives", "cilantro"],
+      "red chili flakes": ["fresh red chili", "paprika (milder)"]
+    },
+    "tips": [
+      "The pasta water starch is key to creating a creamy sauce — don't skip it.",
+      "Low heat for garlic is crucial; burnt garlic makes the dish bitter.",
+      "Use the best olive oil you have — it's the star of this dish."
+    ],
+    "nutrition": {"calories": 420, "protein": "12g", "carbs": "65g", "fat": "14g"},
+    "tags": ["quick", "pantry", "budget-friendly", "garlic", "pasta"]
+  },
+  {
+    "id": "R002",
+    "name": "Chickpea and Spinach Curry",
+    "cuisine": "Indian",
+    "diet": ["vegetarian", "vegan", "gluten-free"],
+    "difficulty": "easy",
+    "time_minutes": 30,
+    "servings": 4,
+    "ingredients": [
+      {"name": "chickpeas", "quantity": "2 cans (400g each)", "category": "legumes"},
+      {"name": "spinach", "quantity": "200g", "category": "vegetables"},
+      {"name": "onion", "quantity": "1 large", "category": "aromatics"},
+      {"name": "garlic", "quantity": "4 cloves", "category": "aromatics"},
+      {"name": "ginger", "quantity": "1 inch piece", "category": "aromatics"},
+      {"name": "canned tomatoes", "quantity": "400g", "category": "vegetables"},
+      {"name": "coconut milk", "quantity": "200ml", "category": "dairy-alternative"},
+      {"name": "cumin seeds", "quantity": "1 tsp", "category": "spices"},
+      {"name": "garam masala", "quantity": "2 tsp", "category": "spices"},
+      {"name": "turmeric", "quantity": "1 tsp", "category": "spices"},
+      {"name": "vegetable oil", "quantity": "2 tbsp", "category": "oil"},
+      {"name": "salt", "quantity": "to taste", "category": "seasoning"}
+    ],
+    "instructions": [
+      "Heat oil in a large pan over medium heat. Add cumin seeds and let them splutter 30 seconds.",
+      "Add diced onion and cook 5-6 min until golden. Add minced garlic and grated ginger, cook 1 min.",
+      "Add turmeric and garam masala, stir 30 seconds until fragrant.",
+      "Pour in canned tomatoes, crush them, and simmer 5 min.",
+      "Add drained chickpeas and coconut milk. Simmer 10 min.",
+      "Stir in spinach until wilted (2 min). Season with salt. Serve with rice or naan."
+    ],
+    "substitutions": {
+      "chickpeas": ["kidney beans", "lentils", "tofu cubes"],
+      "spinach": ["kale", "swiss chard", "frozen peas"],
+      "coconut milk": ["plain yogurt (not vegan)", "cream", "extra tomatoes"],
+      "fresh ginger": ["1/2 tsp ground ginger"]
+    },
+    "tips": [
+      "Blooming spices in oil before adding other ingredients unlocks deeper flavor.",
+      "Drain and rinse canned chickpeas to reduce sodium.",
+      "Leftovers taste even better the next day as flavors meld."
+    ],
+    "nutrition": {"calories": 320, "protein": "14g", "carbs": "42g", "fat": "11g"},
+    "tags": ["vegan", "high-protein", "curry", "one-pot", "chickpea", "spinach"]
+  },
+  {
+    "id": "R003",
+    "name": "Classic Omelette",
+    "cuisine": "French",
+    "diet": ["vegetarian", "keto", "low-carb"],
+    "difficulty": "easy",
+    "time_minutes": 10,
+    "servings": 1,
+    "ingredients": [
+      {"name": "eggs", "quantity": "3 large", "category": "protein"},
+      {"name": "butter", "quantity": "1 tbsp", "category": "dairy"},
+      {"name": "salt", "quantity": "pinch", "category": "seasoning"},
+      {"name": "black pepper", "quantity": "pinch", "category": "seasoning"},
+      {"name": "cheese", "quantity": "30g optional", "category": "dairy"},
+      {"name": "chives", "quantity": "small handful optional", "category": "herbs"}
+    ],
+    "instructions": [
+      "Crack eggs into a bowl. Add salt and pepper. Beat with a fork until yolk and white are fully combined.",
+      "Heat a non-stick pan over medium-high heat. Add butter and let it foam.",
+      "Pour in eggs. Let set 10 seconds, then use a spatula to push edges toward center, tilting pan.",
+      "When egg is mostly set but still glossy on top (not runny), add cheese if using.",
+      "Fold omelette in thirds or roll toward edge of pan. Slide onto plate. Garnish with chives."
+    ],
+    "substitutions": {
+      "butter": ["olive oil", "cooking spray", "avocado oil"],
+      "cheese": ["any melting cheese — cheddar, gruyere, mozzarella"],
+      "chives": ["parsley", "spring onion tops", "dill"]
+    },
+    "tips": [
+      "Do not over-beat eggs — a few streaks are fine and give better texture.",
+      "A hot pan and fast movement are the secrets to a soft, custardy omelette.",
+      "Fillings should be pre-cooked; the omelette time is too short to cook raw fillings."
+    ],
+    "nutrition": {"calories": 280, "protein": "20g", "carbs": "1g", "fat": "22g"},
+    "tags": ["quick", "breakfast", "keto", "eggs", "protein", "low-carb"]
+  },
+  {
+    "id": "R004",
+    "name": "Vegetable Fried Rice",
+    "cuisine": "Chinese",
+    "diet": ["vegetarian", "vegan"],
+    "difficulty": "easy",
+    "time_minutes": 20,
+    "servings": 3,
+    "ingredients": [
+      {"name": "cooked rice", "quantity": "3 cups (day-old preferred)", "category": "grains"},
+      {"name": "eggs", "quantity": "2 large", "category": "protein"},
+      {"name": "carrot", "quantity": "1 medium", "category": "vegetables"},
+      {"name": "peas", "quantity": "1/2 cup", "category": "vegetables"},
+      {"name": "spring onions", "quantity": "3", "category": "aromatics"},
+      {"name": "garlic", "quantity": "3 cloves", "category": "aromatics"},
+      {"name": "soy sauce", "quantity": "3 tbsp", "category": "condiments"},
+      {"name": "sesame oil", "quantity": "1 tsp", "category": "oil"},
+      {"name": "vegetable oil", "quantity": "2 tbsp", "category": "oil"},
+      {"name": "salt", "quantity": "to taste", "category": "seasoning"}
+    ],
+    "instructions": [
+      "Dice carrot into small cubes. Mince garlic. Slice spring onions, separating white and green parts.",
+      "Heat oil in a wok or large pan over high heat. Add garlic and white spring onion parts, stir-fry 30 sec.",
+      "Add carrot and peas. Stir-fry 2-3 min.",
+      "Push vegetables to one side. Scramble eggs in the empty space until just set.",
+      "Add day-old rice, breaking up clumps. Toss everything together on high heat 3-4 min.",
+      "Add soy sauce, sesame oil, and salt. Toss again 1 min. Garnish with green spring onion tops."
+    ],
+    "substitutions": {
+      "cooked rice": ["cauliflower rice (low-carb)", "quinoa", "leftover noodles"],
+      "peas": ["corn kernels", "edamame", "chopped green beans"],
+      "soy sauce": ["tamari (gluten-free)", "coconut aminos", "salt + umami seasoning"],
+      "carrot": ["bell pepper", "broccoli florets", "zucchini"]
+    },
+    "tips": [
+      "Day-old cold rice is essential — fresh rice is too moist and makes fried rice gluey.",
+      "High heat and a dry wok are the keys to authentic wok hei (smoky flavor).",
+      "Add a splash of oyster sauce or fish sauce (if not vegan) for extra depth."
+    ],
+    "nutrition": {"calories": 380, "protein": "11g", "carbs": "58g", "fat": "12g"},
+    "tags": ["rice", "leftover-rice", "quick", "wok", "chinese", "budget-friendly"]
+  },
+  {
+    "id": "R005",
+    "name": "Banana Pancakes",
+    "cuisine": "American",
+    "diet": ["vegetarian"],
+    "difficulty": "easy",
+    "time_minutes": 15,
+    "servings": 2,
+    "ingredients": [
+      {"name": "banana", "quantity": "2 ripe", "category": "fruit"},
+      {"name": "eggs", "quantity": "2 large", "category": "protein"},
+      {"name": "flour", "quantity": "1/2 cup", "category": "grains"},
+      {"name": "baking powder", "quantity": "1 tsp", "category": "leavening"},
+      {"name": "milk", "quantity": "1/4 cup", "category": "dairy"},
+      {"name": "butter", "quantity": "1 tbsp", "category": "dairy"},
+      {"name": "pinch of salt", "quantity": "pinch", "category": "seasoning"},
+      {"name": "vanilla extract", "quantity": "1/2 tsp optional", "category": "flavoring"}
+    ],
+    "instructions": [
+      "Mash bananas in a bowl until smooth. Beat in eggs until well combined.",
+      "Add flour, baking powder, and salt. Mix until just combined — small lumps are fine.",
+      "Stir in milk and vanilla extract until batter is smooth.",
+      "Heat butter in a non-stick pan over medium heat.",
+      "Pour 1/4 cup batter per pancake. Cook 2-3 min until bubbles form, then flip and cook 1-2 min.",
+      "Serve with honey, maple syrup, or fresh fruit."
+    ],
+    "substitutions": {
+      "flour": ["oat flour", "almond flour (denser)", "gluten-free all-purpose flour"],
+      "milk": ["almond milk", "oat milk", "coconut milk"],
+      "butter": ["coconut oil", "olive oil"],
+      "eggs": ["flax egg (1 tbsp ground flax + 3 tbsp water, for vegan)"]
+    },
+    "tips": [
+      "The riper the banana (spotted/brown), the sweeter and more flavorful the pancakes.",
+      "Do not overmix batter — this develops gluten and makes pancakes tough.",
+      "For extra fluffy pancakes, let the batter rest 5 min before cooking."
+    ],
+    "nutrition": {"calories": 310, "protein": "9g", "carbs": "52g", "fat": "8g"},
+    "tags": ["breakfast", "banana", "sweet", "kid-friendly", "quick"]
+  },
+  {
+    "id": "R006",
+    "name": "Lemon Garlic Roasted Chicken",
+    "cuisine": "Mediterranean",
+    "diet": ["gluten-free", "low-carb", "keto"],
+    "difficulty": "medium",
+    "time_minutes": 75,
+    "servings": 4,
+    "ingredients": [
+      {"name": "chicken", "quantity": "1 whole (1.5kg) or 4 pieces", "category": "protein"},
+      {"name": "lemon", "quantity": "2", "category": "fruit"},
+      {"name": "garlic", "quantity": "6 cloves", "category": "aromatics"},
+      {"name": "olive oil", "quantity": "3 tbsp", "category": "oil"},
+      {"name": "rosemary", "quantity": "2 sprigs", "category": "herbs"},
+      {"name": "thyme", "quantity": "4 sprigs", "category": "herbs"},
+      {"name": "salt", "quantity": "1.5 tsp", "category": "seasoning"},
+      {"name": "black pepper", "quantity": "1 tsp", "category": "seasoning"},
+      {"name": "paprika", "quantity": "1 tsp", "category": "spices"}
+    ],
+    "instructions": [
+      "Preheat oven to 200°C (400°F). Pat chicken completely dry with paper towels.",
+      "Mix olive oil, juice of 1 lemon, minced garlic, paprika, salt, and pepper into a paste.",
+      "Rub paste all over chicken, including under the skin if possible.",
+      "Stuff cavity (or surround pieces) with sliced lemon, rosemary, and thyme.",
+      "Roast 60-70 min (whole bird) or 35-40 min (pieces) until juices run clear (75°C internal temp).",
+      "Rest 10 min before carving. Deglaze pan drippings with a splash of water for a quick sauce."
+    ],
+    "substitutions": {
+      "chicken": ["turkey pieces", "cornish hen"],
+      "rosemary": ["dried rosemary (1 tsp)", "oregano", "sage"],
+      "thyme": ["dried thyme (1 tsp)", "marjoram"],
+      "lemon": ["orange (sweeter)", "lime"]
+    },
+    "tips": [
+      "Dry chicken roasts better — moisture prevents crisping of skin.",
+      "Room-temperature chicken cooks more evenly than straight from the fridge.",
+      "A meat thermometer is the only reliable way to know if chicken is cooked safely."
+    ],
+    "nutrition": {"calories": 480, "protein": "52g", "carbs": "4g", "fat": "28g"},
+    "tags": ["chicken", "roast", "oven", "keto", "gluten-free", "meal-prep"]
+  },
+  {
+    "id": "R007",
+    "name": "Tomato Basil Soup",
+    "cuisine": "Italian",
+    "diet": ["vegetarian", "vegan", "gluten-free"],
+    "difficulty": "easy",
+    "time_minutes": 35,
+    "servings": 4,
+    "ingredients": [
+      {"name": "canned tomatoes", "quantity": "2 cans (800g)", "category": "vegetables"},
+      {"name": "onion", "quantity": "1 large", "category": "aromatics"},
+      {"name": "garlic", "quantity": "4 cloves", "category": "aromatics"},
+      {"name": "vegetable broth", "quantity": "500ml", "category": "liquids"},
+      {"name": "fresh basil", "quantity": "large handful", "category": "herbs"},
+      {"name": "olive oil", "quantity": "2 tbsp", "category": "oil"},
+      {"name": "sugar", "quantity": "1 tsp", "category": "seasoning"},
+      {"name": "salt", "quantity": "to taste", "category": "seasoning"},
+      {"name": "black pepper", "quantity": "to taste", "category": "seasoning"}
+    ],
+    "instructions": [
+      "Heat olive oil in a pot over medium heat. Add diced onion and cook 5 min until soft.",
+      "Add minced garlic and cook 1 min more.",
+      "Add canned tomatoes (crush them with your hands as you add), broth, and sugar.",
+      "Simmer 20 min. Remove from heat and add most of the basil.",
+      "Blend smooth with an immersion blender or in batches in a blender.",
+      "Season with salt and pepper. Serve with remaining basil leaves and a drizzle of olive oil."
+    ],
+    "substitutions": {
+      "canned tomatoes": ["1kg fresh ripe tomatoes, roasted"],
+      "vegetable broth": ["water + 1 tsp bouillon", "chicken broth (not vegan)"],
+      "fresh basil": ["2 tsp dried basil (add with tomatoes)", "fresh oregano"],
+      "sugar": ["honey (not vegan)", "carrot (add while cooking for natural sweetness)"]
+    },
+    "tips": [
+      "A pinch of sugar balances the acidity of canned tomatoes beautifully.",
+      "For a creamy version, stir in 2 tbsp cream or coconut cream before serving.",
+      "Pair with crusty bread or a grilled cheese sandwich for a classic combination."
+    ],
+    "nutrition": {"calories": 140, "protein": "4g", "carbs": "20g", "fat": "6g"},
+    "tags": ["soup", "tomato", "comfort", "winter", "pantry", "blended"]
+  },
+  {
+    "id": "R008",
+    "name": "Greek Salad",
+    "cuisine": "Greek",
+    "diet": ["vegetarian", "gluten-free", "keto", "low-carb"],
+    "difficulty": "easy",
+    "time_minutes": 10,
+    "servings": 2,
+    "ingredients": [
+      {"name": "cucumber", "quantity": "1 large", "category": "vegetables"},
+      {"name": "tomatoes", "quantity": "3 medium", "category": "vegetables"},
+      {"name": "red onion", "quantity": "1/2", "category": "aromatics"},
+      {"name": "kalamata olives", "quantity": "80g", "category": "condiments"},
+      {"name": "feta cheese", "quantity": "100g", "category": "dairy"},
+      {"name": "olive oil", "quantity": "3 tbsp", "category": "oil"},
+      {"name": "dried oregano", "quantity": "1 tsp", "category": "herbs"},
+      {"name": "salt", "quantity": "to taste", "category": "seasoning"},
+      {"name": "black pepper", "quantity": "to taste", "category": "seasoning"}
+    ],
+    "instructions": [
+      "Chop cucumber into chunky half-moons. Cut tomatoes into wedges. Thinly slice red onion.",
+      "Combine cucumber, tomatoes, red onion, and olives in a large bowl.",
+      "Drizzle generously with olive oil. Season with salt, pepper, and dried oregano.",
+      "Toss gently. Place feta as a large block on top (traditional) or crumble over.",
+      "Serve immediately or refrigerate up to 1 hour."
+    ],
+    "substitutions": {
+      "kalamata olives": ["black olives", "green olives"],
+      "feta cheese": ["halloumi", "tofu with lemon juice (vegan)"],
+      "red onion": ["shallots", "spring onions"],
+      "cucumber": ["zucchini (for a twist)"]
+    },
+    "tips": [
+      "Never dress a Greek salad with lemon juice — authentic Greek salad uses only olive oil.",
+      "Pat tomatoes dry for a less watery salad.",
+      "The key is chunky cuts — this is not a finely chopped salad."
+    ],
+    "nutrition": {"calories": 310, "protein": "9g", "carbs": "14g", "fat": "26g"},
+    "tags": ["salad", "no-cook", "mediterranean", "keto", "fresh", "feta"]
+  },
+  {
+    "id": "R009",
+    "name": "Dal (Red Lentil Soup)",
+    "cuisine": "Indian",
+    "diet": ["vegan", "vegetarian", "gluten-free"],
+    "difficulty": "easy",
+    "time_minutes": 30,
+    "servings": 4,
+    "ingredients": [
+      {"name": "red lentils", "quantity": "250g", "category": "legumes"},
+      {"name": "onion", "quantity": "1 large", "category": "aromatics"},
+      {"name": "garlic", "quantity": "3 cloves", "category": "aromatics"},
+      {"name": "ginger", "quantity": "1 tsp grated", "category": "aromatics"},
+      {"name": "canned tomatoes", "quantity": "200g", "category": "vegetables"},
+      {"name": "turmeric", "quantity": "1 tsp", "category": "spices"},
+      {"name": "cumin", "quantity": "1 tsp", "category": "spices"},
+      {"name": "coriander powder", "quantity": "1 tsp", "category": "spices"},
+      {"name": "vegetable oil", "quantity": "2 tbsp", "category": "oil"},
+      {"name": "vegetable broth", "quantity": "800ml", "category": "liquids"},
+      {"name": "lemon juice", "quantity": "1 tbsp", "category": "acids"},
+      {"name": "salt", "quantity": "to taste", "category": "seasoning"},
+      {"name": "fresh cilantro", "quantity": "to garnish", "category": "herbs"}
+    ],
+    "instructions": [
+      "Rinse lentils until water runs clear. Heat oil in a pot over medium heat.",
+      "Add onion and cook 5 min until golden. Add garlic and ginger, cook 1 min.",
+      "Add turmeric, cumin, and coriander powder. Stir 30 seconds.",
+      "Add tomatoes and cook 3 min. Add rinsed lentils and broth.",
+      "Bring to boil, then simmer 15-20 min until lentils are completely soft and creamy.",
+      "Stir in lemon juice. Season with salt. Serve garnished with cilantro over rice or with bread."
+    ],
+    "substitutions": {
+      "red lentils": ["yellow lentils", "green lentils (cook longer)"],
+      "fresh ginger": ["1/2 tsp ground ginger"],
+      "cilantro": ["parsley", "spring onions"],
+      "vegetable broth": ["water (add more salt)"]
+    },
+    "tips": [
+      "Red lentils don't need soaking and cook quickly — perfect for weeknights.",
+      "For a richer dal, finish with a 'tarka': fry mustard seeds and curry leaves in ghee, pour over.",
+      "Dal thickens as it cools — add water when reheating."
+    ],
+    "nutrition": {"calories": 280, "protein": "16g", "carbs": "44g", "fat": "5g"},
+    "tags": ["soup", "lentils", "vegan", "high-protein", "budget-friendly", "indian"]
+  },
+  {
+    "id": "R010",
+    "name": "Avocado Toast with Poached Egg",
+    "cuisine": "Modern",
+    "diet": ["vegetarian"],
+    "difficulty": "easy",
+    "time_minutes": 15,
+    "servings": 1,
+    "ingredients": [
+      {"name": "bread", "quantity": "2 slices", "category": "grains"},
+      {"name": "avocado", "quantity": "1 ripe", "category": "fruit"},
+      {"name": "eggs", "quantity": "2 large", "category": "protein"},
+      {"name": "lemon juice", "quantity": "1 tsp", "category": "acids"},
+      {"name": "red chili flakes", "quantity": "pinch", "category": "spices"},
+      {"name": "salt", "quantity": "to taste", "category": "seasoning"},
+      {"name": "black pepper", "quantity": "to taste", "category": "seasoning"},
+      {"name": "white vinegar", "quantity": "1 tbsp", "category": "acids"}
+    ],
+    "instructions": [
+      "Toast bread until golden and crispy.",
+      "Mash avocado with lemon juice, salt, and pepper in a bowl.",
+      "Bring a pot of water to a gentle simmer. Add white vinegar.",
+      "Crack egg into a small cup. Create a gentle whirlpool in the water, then slide egg in.",
+      "Poach 3 min for a runny yolk. Remove with a slotted spoon and pat dry.",
+      "Spread mashed avocado on toast. Top with poached egg. Sprinkle chili flakes and serve."
+    ],
+    "substitutions": {
+      "bread": ["sourdough", "rye bread", "gluten-free bread"],
+      "poached egg": ["fried egg", "soft-boiled egg"],
+      "lemon juice": ["lime juice"],
+      "red chili flakes": ["everything bagel seasoning", "dukkah", "za'atar"]
+    },
+    "tips": [
+      "Vinegar in poaching water helps the egg white coagulate faster and hold together.",
+      "Add a teaspoon of cream cheese under the avocado for extra richness.",
+      "Season the avocado well — it needs more salt than you think."
+    ],
+    "nutrition": {"calories": 460, "protein": "18g", "carbs": "36g", "fat": "30g"},
+    "tags": ["breakfast", "avocado", "brunch", "healthy", "trendy"]
+  },
+  {
+    "id": "R011",
+    "name": "Beef Stir-Fry with Vegetables",
+    "cuisine": "Chinese",
+    "diet": ["gluten-free"],
+    "difficulty": "medium",
+    "time_minutes": 25,
+    "servings": 3,
+    "ingredients": [
+      {"name": "beef sirloin", "quantity": "400g", "category": "protein"},
+      {"name": "broccoli", "quantity": "1 head", "category": "vegetables"},
+      {"name": "bell pepper", "quantity": "1", "category": "vegetables"},
+      {"name": "garlic", "quantity": "3 cloves", "category": "aromatics"},
+      {"name": "ginger", "quantity": "1 inch", "category": "aromatics"},
+      {"name": "soy sauce", "quantity": "3 tbsp", "category": "condiments"},
+      {"name": "oyster sauce", "quantity": "2 tbsp", "category": "condiments"},
+      {"name": "sesame oil", "quantity": "1 tsp", "category": "oil"},
+      {"name": "cornstarch", "quantity": "2 tsp", "category": "thickeners"},
+      {"name": "vegetable oil", "quantity": "3 tbsp", "category": "oil"}
+    ],
+    "instructions": [
+      "Slice beef thinly against the grain. Marinate with 1 tbsp soy sauce and cornstarch for 10 min.",
+      "Cut broccoli into florets. Slice bell pepper into strips. Mince garlic and ginger.",
+      "Mix remaining soy sauce, oyster sauce, and sesame oil into a sauce bowl.",
+      "Heat wok over highest flame until smoking. Add 2 tbsp oil. Sear beef 2-3 min, do not stir too soon. Remove.",
+      "Add remaining oil. Stir-fry garlic and ginger 30 sec. Add broccoli and pepper, stir-fry 3-4 min.",
+      "Return beef to wok. Pour sauce over. Toss 1-2 min until everything is coated. Serve over rice."
+    ],
+    "substitutions": {
+      "beef sirloin": ["chicken breast", "pork tenderloin", "tofu (press first)"],
+      "broccoli": ["bok choy", "snap peas", "green beans"],
+      "oyster sauce": ["hoisin sauce", "soy sauce with a pinch of sugar"],
+      "soy sauce": ["tamari (gluten-free)"]
+    },
+    "tips": [
+      "Slicing meat against the grain shortens muscle fibers, making it tenderer.",
+      "Cornstarch in the marinade creates a velvety coating on the meat (velveting technique).",
+      "Work fast — stir-fry is a high-heat, quick technique. Have everything prepped before you start."
+    ],
+    "nutrition": {"calories": 420, "protein": "38g", "carbs": "18g", "fat": "22g"},
+    "tags": ["beef", "stir-fry", "wok", "chinese", "high-protein", "quick"]
+  },
+  {
+    "id": "R012",
+    "name": "Simple French Toast",
+    "cuisine": "French",
+    "diet": ["vegetarian"],
+    "difficulty": "easy",
+    "time_minutes": 15,
+    "servings": 2,
+    "ingredients": [
+      {"name": "bread", "quantity": "4 thick slices", "category": "grains"},
+      {"name": "eggs", "quantity": "2 large", "category": "protein"},
+      {"name": "milk", "quantity": "1/4 cup", "category": "dairy"},
+      {"name": "butter", "quantity": "1 tbsp", "category": "dairy"},
+      {"name": "vanilla extract", "quantity": "1/2 tsp", "category": "flavoring"},
+      {"name": "cinnamon", "quantity": "1/2 tsp", "category": "spices"},
+      {"name": "sugar", "quantity": "1 tbsp", "category": "sweeteners"},
+      {"name": "salt", "quantity": "pinch", "category": "seasoning"}
+    ],
+    "instructions": [
+      "Whisk eggs, milk, vanilla, cinnamon, sugar, and salt together in a shallow bowl.",
+      "Heat butter in a pan over medium heat until foaming.",
+      "Dip each bread slice in egg mixture, letting it soak 10-15 seconds per side.",
+      "Cook each slice 2-3 min per side until golden brown.",
+      "Serve immediately with maple syrup, powdered sugar, or fresh berries."
+    ],
+    "substitutions": {
+      "bread": ["brioche (richer)", "challah", "sourdough"],
+      "milk": ["cream (richer)", "oat milk", "almond milk"],
+      "butter": ["coconut oil"],
+      "sugar": ["maple syrup in the batter"]
+    },
+    "tips": [
+      "Thick, slightly stale bread absorbs the custard best without falling apart.",
+      "Let slices soak longer (30 sec each side) for a custardy interior.",
+      "A little orange zest in the custard adds a wonderful brightness."
+    ],
+    "nutrition": {"calories": 340, "protein": "13g", "carbs": "44g", "fat": "13g"},
+    "tags": ["breakfast", "sweet", "brunch", "french-toast", "kid-friendly"]
+  }
+]

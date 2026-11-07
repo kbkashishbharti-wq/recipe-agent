@@ -1,0 +1,49 @@
+﻿# --- Secrets & credentials ---------------------------------------------------
+.env
+.env.*
+!.env.example
+
+# --- Python ------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+.eggs/
+*.whl
+MANIFEST
+
+# --- Virtual environments ----------------------------------------------------
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# --- Vector / ChromaDB store (auto-generated) --------------------------------
+data/chroma_db/
+
+# --- IDE & OS ----------------------------------------------------------------
+.vscode/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Logs & temp -------------------------------------------------------------
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# --- Test / coverage ---------------------------------------------------------
+.pytest_cache/
+.coverage
+htmlcov/
