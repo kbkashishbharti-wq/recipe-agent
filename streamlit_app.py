@@ -2,9 +2,20 @@
 Recipe Preparation Agent — Streamlit UI
 IBM Granite + RAG powered cooking assistant.
 Deploy: https://streamlit.io/cloud
+
+NEW:
+  • 🎥 YouTube video support (per recipe + a dedicated Video Guides page)
+  • 👩‍🍳 Community Kitchen (users upload photos + feedback of dishes they made)
 """
 
+import json
 import os
+import re
+import uuid
+from datetime import datetime
+from pathlib import Path
+from urllib.parse import quote_plus
+
 import streamlit as st
 
 # ── Page config — MUST be first Streamlit call ────────────────────────────────
@@ -38,6 +49,42 @@ except Exception:
     pass
 
 from recipe_agent import RecipeAgent  # noqa: E402  (must come after env setup)
+
+# ── Storage for new features ──────────────────────────────────────────────────
+# NOTE: Streamlit Cloud's disk is temporary — files here are wiped when the app
+# restarts/redeploys. Fine for demos; for permanent storage use Supabase /
+# Firebase / Google Sheets + Cloudinary.
+DATA_DIR    = Path("community_data")
+IMAGE_DIR   = DATA_DIR / "images"
+POSTS_FILE  = DATA_DIR / "posts.json"
+VIDEOS_FILE = DATA_DIR / "videos.json"
+IMAGE_DIR.mkdir(parents=True, exist_ok=True)
+
+MAX_IMAGE_MB = 5
+YT_PATTERN = re.compile(
+    r"^(https?://)?(www\.|m\.)?"
+    r"(youtube\.com/(watch\?(.*&)?v=|shorts/|embed/)|youtu\.be/)[\w-]{11}",
+    re.IGNORECASE,
+)
+
+
+def load_json(path: Path, default):
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return default
+
+
+def save_json(path: Path, data) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+
+def is_youtube_url(url: str) -> bool:
+    return bool(YT_PATTERN.match((url or "").strip()))
+
 
 # ── Custom CSS — uses [data-testid] selectors that survive Streamlit Cloud ────
 st.markdown(
@@ -135,7 +182,14 @@ with st.sidebar:
     # Navigation
     page = st.radio(
         "nav",
-        ["🔍 Find Recipes", "🔄 Substitution", "💡 Cooking Tips", "📖 Browse Recipes"],
+        [
+            "🔍 Find Recipes",
+            "🔄 Substitution",
+            "💡 Cooking Tips",
+            "📖 Browse Recipes",
+            "🎥 Video Guides",
+            "👩‍🍳 Community Kitchen",
+        ],
         label_visibility="collapsed",
     )
 
@@ -168,6 +222,38 @@ def recipe_card(recipe: dict, idx: int):
         </div>""",
         unsafe_allow_html=True,
     )
+
+
+# ── Helper: YouTube video block for a recipe ─────────────────────────────────
+def video_section(recipe: dict, key_prefix: str):
+    """Shows the recipe's video (if any), a YouTube search link, and a box to add a link."""
+    rid  = str(recipe.get("id", recipe.get("name", "")))
+    name = recipe.get("name", "")
+
+    saved_links = load_json(VIDEOS_FILE, {})
+    url = recipe.get("youtube_url") or saved_links.get(rid)
+
+    st.markdown("**🎥 Video tutorial**")
+    if url and is_youtube_url(url):
+        st.video(url)
+    else:
+        st.caption("No video added for this recipe yet.")
+
+    search_url = f"https://www.youtube.com/results?search_query={quote_plus(name + ' recipe')}"
+    st.markdown(f"[🔎 Search “{name}” on YouTube]({search_url})")
+
+    new_url = st.text_input(
+        "Paste a YouTube link for this recipe",
+        placeholder="https://www.youtube.com/watch?v=...",
+        key=f"{key_prefix}_yt_{rid}",
+    )
+    if st.button("Save video link", key=f"{key_prefix}_ytbtn_{rid}"):
+        if is_youtube_url(new_url):
+            saved_links[rid] = new_url.strip()
+            save_json(VIDEOS_FILE, saved_links)
+            st.success("Video saved! It will show up next time this recipe is opened.")
+        else:
+            st.error("That doesn't look like a valid YouTube link.")
 
 
 # ════════════════════════════════════════════════════════════════════════════
@@ -238,6 +324,8 @@ if page == "🔍 Find Recipes":
                                 nc2.metric("Protein",  n.get("protein",  "—"))
                                 nc3.metric("Carbs",    n.get("carbs",    "—"))
                                 nc4.metric("Fat",      n.get("fat",      "—"))
+                            st.divider()
+                            video_section(r, key_prefix=f"find{i}")
                 else:
                     st.info("No recipes found. Try adding more common pantry items like garlic, oil, or onion.")
 
@@ -376,8 +464,136 @@ elif page == "📖 Browse Recipes":
                 st.markdown("**Tips:**")
                 for tip in recipe["tips"]:
                     st.markdown(f"- {tip}")
+            st.divider()
+            video_section(recipe, key_prefix="browse")
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# PAGE 5 — Video Guides (NEW)
+# ════════════════════════════════════════════════════════════════════════════
+elif page == "🎥 Video Guides":
+    st.title("🎥 Video Guides")
+    st.caption("Watch a cooking video for any recipe, or paste any YouTube link to play it here.")
+
+    tab_recipe, tab_any = st.tabs(["Recipe videos", "Play any YouTube link"])
+
+    with tab_recipe:
+        all_recipes_list = agent.rag.get_all_recipes()
+        by_id = {r["id"]: r for r in all_recipes_list}
+        vid_id = st.selectbox(
+            "Choose a recipe",
+            list(by_id.keys()),
+            format_func=lambda rid: by_id[rid]["name"],
+            key="video_recipe_select",
+        )
+        video_section(by_id[vid_id], key_prefix="videopage")
+
+    with tab_any:
+        link = st.text_input(
+            "YouTube link",
+            placeholder="https://www.youtube.com/watch?v=...",
+            key="any_yt_link",
+        )
+        if link:
+            if is_youtube_url(link):
+                st.video(link.strip())
+            else:
+                st.error("Please enter a valid YouTube link (youtube.com or youtu.be).")
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# PAGE 6 — Community Kitchen (NEW)
+# ════════════════════════════════════════════════════════════════════════════
+elif page == "👩‍🍳 Community Kitchen":
+    st.title("👩‍🍳 Community Kitchen")
+    st.caption("Made a dish using our app? Share a photo and your feedback with everyone!")
+
+    all_recipes_list = agent.rag.get_all_recipes()
+    recipe_names = sorted(r["name"] for r in all_recipes_list)
+
+    # ── Submit form ──────────────────────────────────────────────────────────
+    with st.form("community_form", clear_on_submit=True):
+        st.subheader("📸 Share your creation")
+        fc1, fc2 = st.columns(2)
+        author = fc1.text_input("Your name", max_chars=40, placeholder="e.g. Priya")
+        recipe_choice = fc2.selectbox("Which recipe did you make?", recipe_names)
+
+        rating = st.slider("Your rating", 1, 5, 5)
+        feedback = st.text_area(
+            "Your feedback",
+            max_chars=500,
+            placeholder="How did it turn out? Any changes you made?",
+        )
+        photo = st.file_uploader(
+            f"Photo of your dish (JPG/PNG, max {MAX_IMAGE_MB} MB)",
+            type=["jpg", "jpeg", "png"],
+        )
+        submitted = st.form_submit_button("🚀 Post to Community", type="primary")
+
+    if submitted:
+        if not author.strip():
+            st.warning("Please enter your name.")
+        elif not feedback.strip() and photo is None:
+            st.warning("Please add a photo or some feedback.")
+        elif photo is not None and photo.size > MAX_IMAGE_MB * 1024 * 1024:
+            st.error(f"Photo is too large. Please keep it under {MAX_IMAGE_MB} MB.")
+        else:
+            image_name = None
+            if photo is not None:
+                ext = Path(photo.name).suffix.lower()
+                if ext not in (".jpg", ".jpeg", ".png"):
+                    ext = ".jpg"
+                image_name = f"{uuid.uuid4().hex}{ext}"
+                with open(IMAGE_DIR / image_name, "wb") as f:
+                    f.write(photo.getbuffer())
+
+            posts = load_json(POSTS_FILE, [])
+            posts.append({
+                "id":        uuid.uuid4().hex,
+                "author":    author.strip(),
+                "recipe":    recipe_choice,
+                "rating":    rating,
+                "feedback":  feedback.strip(),
+                "image":     image_name,
+                "timestamp": datetime.now().strftime("%d %b %Y, %I:%M %p"),
+            })
+            save_json(POSTS_FILE, posts)
+            st.success("🎉 Thanks for sharing! Your post is live below.")
+
+    # ── Gallery ──────────────────────────────────────────────────────────────
+    st.divider()
+    st.subheader("🍽️ Community Gallery")
+
+    posts = load_json(POSTS_FILE, [])
+    posts = list(reversed(posts))  # newest first
+
+    if posts:
+        recipes_with_posts = sorted({p["recipe"] for p in posts})
+        gallery_filter = st.multiselect("Filter by recipe", recipes_with_posts)
+        if gallery_filter:
+            posts = [p for p in posts if p["recipe"] in gallery_filter]
+
+        st.markdown(f"**{len(posts)} post(s)**")
+
+        cols = st.columns(3)
+        for idx, p in enumerate(posts):
+            with cols[idx % 3]:
+                with st.container(border=True):
+                    img_path = IMAGE_DIR / p["image"] if p.get("image") else None
+                    if img_path and img_path.exists():
+                        st.image(str(img_path), use_container_width=True)
+                    st.markdown(f"**{p['recipe']}**")
+                    st.markdown("⭐" * int(p.get("rating", 0)))
+                    if p.get("feedback"):
+                        st.write(p["feedback"])
+                    st.caption(f"👤 {p['author']} · {p['timestamp']}")
+    else:
+        st.info("No posts yet — be the first to share your dish! 🍳")
 
 
 # ── Footer ────────────────────────────────────────────────────────────────────
 st.divider()
 st.caption("Recipe Preparation Agent · IBM Granite + RAG · Built for AICTE")
+
+
+
