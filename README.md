@@ -18,18 +18,49 @@ The **Recipe Preparation Agent** helps users cook meals using only the ingredien
 
 ---
 
+## ▶️ Deploy on Streamlit Cloud (One-Click)
+
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://streamlit.io/cloud)
+
+### Steps
+
+1. **Fork / clone this repo** to your GitHub account.
+
+2. **Go to** [share.streamlit.io](https://share.streamlit.io) → **New app**.
+
+3. Fill in:
+   | Field | Value |
+   |---|---|
+   | Repository | `your-github-username/your-repo-name` |
+   | Branch | `main` |
+   | Main file path | `streamlit_app.py` |
+
+4. **Add Secrets** — click **Advanced settings → Secrets** and paste:
+   ```toml
+   WATSONX_API_KEY      = "your_ibm_cloud_api_key"
+   WATSONX_PROJECT_ID   = "your_watsonx_project_id"
+   WATSONX_URL          = "https://us-south.ml.cloud.ibm.com"
+   GRANITE_MODEL_ID     = "ibm/granite-4-h-small"
+   ```
+   > **Without these**, the app still works in **demo mode** (RAG retrieval fully functional, LLM responses are placeholders).
+
+5. Click **Deploy!** — your app will be live in ~60 seconds.
+
+---
+
 ## Architecture
 
 ```
 User Input (ingredients)
         |
         v
-+---------------------+
-|   Flask REST API    |  app.py
-|  /api/recipes       |
-|  /api/substitution  |
-|  /api/tips          |
-+--------+------------+
++----------------------+
+|   Streamlit UI       |  streamlit_app.py
+|  Find Recipes        |
+|  Substitution        |
+|  Cooking Tips        |
+|  Browse Recipes      |
++--------+-------------+
          |
     +----+------------------------------+
     |         RecipeAgent              |  recipe_agent.py
@@ -56,24 +87,25 @@ User Input (ingredients)
 
 ```
 AICTE-RECIPE PREPARATION AGENT/
-+-- .env.example            <- Template: copy to ".env" and fill in credentials
-+-- .env                    <- Your real credentials (git-ignored, never committed)
-+-- .gitignore              <- Excludes .env, __pycache__, etc.
-+-- requirements.txt        <- Python dependencies
-+-- app.py                  <- Flask REST API server
-+-- recipe_agent.py         <- Core agent logic (RAG + LLM orchestration)
-+-- rag_engine.py           <- TF-IDF RAG engine (pure Python, no native deps)
-+-- granite_client.py       <- IBM Granite LLM client (watsonx.ai chat API)
-+-- static/
-|   +-- index.html          <- Frontend web UI (single-page app)
++-- .env.example               <- Template: copy to ".env" and fill in credentials
++-- .env                       <- Your real credentials (git-ignored, never committed)
++-- .gitignore                 <- Excludes .env, __pycache__, secrets, etc.
++-- requirements.txt           <- Python dependencies (streamlit + ibm-watsonx-ai)
++-- streamlit_app.py           <- ★ Streamlit UI — deploy THIS file
++-- app.py                     <- Flask REST API (local dev / non-Streamlit deployments)
++-- recipe_agent.py            <- Core agent logic (RAG + LLM orchestration)
++-- rag_engine.py              <- TF-IDF RAG engine (pure Python, no native deps)
++-- granite_client.py          <- IBM Granite LLM client (watsonx.ai chat API)
++-- .streamlit/
+|   +-- secrets.toml           <- Local secrets template (git-ignored)
 +-- data/
-|   +-- recipes.json        <- Recipe knowledge base (12 recipes)
+|   +-- recipes.json           <- Recipe knowledge base (12 recipes)
 +-- README.md
 ```
 
 ---
 
-## Setup & Installation
+## Local Development
 
 ### 1. Prerequisites
 - Python 3.9+
@@ -83,8 +115,8 @@ AICTE-RECIPE PREPARATION AGENT/
 ### 2. Clone the repository
 
 ```bash
-git clone https://github.com/kbkashishbharti-wq/recipe-agent.git
-cd recipe-agent
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
 ```
 
 ### 3. Install dependencies
@@ -95,88 +127,44 @@ pip install -r requirements.txt
 
 ### 4. Configure IBM Cloud credentials
 
-Copy the example environment file and fill in your real credentials:
-
+**Option A — `.env` file (for Flask / local):**
 ```bash
 cp .env.example .env
+# Edit .env and fill in WATSONX_API_KEY and WATSONX_PROJECT_ID
 ```
 
-Then edit `.env`:
-
-```env
-WATSONX_API_KEY=your_actual_ibm_cloud_api_key
-WATSONX_PROJECT_ID=your_actual_watsonx_project_id
-WATSONX_URL=https://us-south.ml.cloud.ibm.com
-GRANITE_MODEL_ID=ibm/granite-4-h-small
+**Option B — `.streamlit/secrets.toml` (for local Streamlit):**
+```bash
+# Edit .streamlit/secrets.toml and fill in the same values
 ```
 
-> **Never commit `.env` to version control.** It is listed in `.gitignore`.
+### 5. Run locally
 
-**How to get credentials:**
-1. Sign up at https://cloud.ibm.com (free)
-2. Navigate to **watsonx.ai** and create a project
-3. Go to **Manage > Access (IAM)** and create an API key
-4. Copy your **Project ID** from the project settings page
+**Streamlit (recommended):**
+```bash
+streamlit run streamlit_app.py
+```
+Open: **http://localhost:8501**
 
-### 5. Run the application
-
+**Flask (REST API only):**
 ```bash
 python app.py
 ```
-
-Open your browser at: **http://localhost:5000**
+Open: **http://localhost:5000**
 
 ---
 
 ## Usage
 
-1. Type ingredients you have in your pantry into the tag input (or use quick-add chips)
+1. Type ingredients you have in your pantry (pick from list or free-type)
 2. Optionally select dietary preferences (vegan, keto, gluten-free, etc.)
 3. Optionally type a free-text query (e.g. "quick breakfast", "something spicy")
-4. Click **"Find Recipes with IBM Granite"**
+4. Click **"Find Recipes"**
 5. View RAG-retrieved recipes with ingredient match scores
 6. Read the IBM Granite AI response with step-by-step instructions
-7. Click **"Substitutions"** for any recipe to get AI advice on missing ingredients
-8. Click **"AI Cooking Tips"** for expert Granite-generated tips
-
----
-
-## API Reference
-
-### `POST /api/recipes`
-Find recipes based on ingredients.
-```json
-{
-  "ingredients": ["eggs", "flour", "milk", "butter"],
-  "dietary_preferences": ["vegetarian"],
-  "query": "quick breakfast"
-}
-```
-
-### `POST /api/substitution`
-Get substitution advice for a missing ingredient.
-```json
-{
-  "recipe_id": "R001",
-  "missing_ingredient": "parsley",
-  "available_ingredients": ["basil", "chives"]
-}
-```
-
-### `POST /api/tips`
-Get AI cooking tips for a recipe.
-```json
-{ "recipe_id": "R003" }
-```
-
-### `GET /api/status`
-Health check + agent configuration.
-
-### `GET /api/all-recipes`
-Browse all recipes in the knowledge base.
-
-### `GET /api/ingredients`
-All unique ingredient names (for autocomplete).
+7. Use **Ingredient Substitution** for AI advice on missing items
+8. Use **Cooking Tips** for expert Granite-generated tips
+9. Use **Browse All Recipes** to filter the full knowledge base
 
 ---
 
@@ -201,13 +189,13 @@ All unique ingredient names (for autocomplete).
 
 ## Technology Stack
 
-| Component      | Technology                                                  |
-|----------------|-------------------------------------------------------------|
+| Component      | Technology                                                   |
+|----------------|--------------------------------------------------------------|
 | LLM            | IBM Granite 4 Small (`ibm/granite-4-h-small`) via watsonx.ai |
-| RAG Retrieval  | Pure-Python TF-IDF vector index (zero native dependencies)  |
-| Backend        | Python 3.9+ / Flask                                         |
-| Frontend       | Vanilla HTML / CSS / JavaScript (single-page app)           |
-| IBM SDK        | `ibm-watsonx-ai`                                            |
+| RAG Retrieval  | Pure-Python TF-IDF vector index (zero native dependencies)   |
+| UI             | Streamlit (`streamlit_app.py`)                               |
+| REST API       | Python 3.9+ / Flask (`app.py`)                               |
+| IBM SDK        | `ibm-watsonx-ai`                                             |
 
 ---
 
